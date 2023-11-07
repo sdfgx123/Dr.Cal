@@ -1,6 +1,3 @@
-# Dr.Cal 개인 리팩토링 Repository
-<p>본 Repository의 목적은 CI/CD 스크립트를 본 프로젝트에서 직접 작성해보고, 테스트하기 위함입니다.</p>
-
 <div align=center>
 
 ![logo](https://github.com/MINI-TEAM3/mini3-server/assets/128345842/b31a2646-1182-45ef-9bac-7f2c4e6859e9)
