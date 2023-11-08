@@ -1,17 +1,16 @@
 package com.fc.mini3server._core.utils;
 
 import com.fc.mini3server.domain.*;
-import com.fc.mini3server.repository.DeptRepository;
-import com.fc.mini3server.repository.HospitalRepository;
-import com.fc.mini3server.repository.ScheduleRepository;
-import com.fc.mini3server.repository.UserRepository;
+import com.fc.mini3server.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -22,9 +21,11 @@ public class DBInit {
     private final ScheduleRepository scheduleRepository;
     private final HospitalRepository hospitalRepository;
     private final DeptRepository deptRepository;
+    private final WorkRepository workRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //@Bean
+//    @Profile("dev")
+//    @Bean
     CommandLineRunner initDB(){
         return args -> {
             Hospital hospital1 = Hospital.builder()
@@ -178,18 +179,18 @@ public class DBInit {
                     dept21, dept22, dept23, dept24, dept25, dept26, dept27, dept28, dept29, dept30,
                     dept31, dept32, dept33, dept34, dept35, dept36, dept37, dept38, dept39, dept40,
                     dept41, dept42
-                    ));
+            ));
 
             long empNo = 10000000L;
             User user01 = User.builder()
                     .empNo(++empNo)
                     .name("서울대관리자")
-                    .email("admin@doctorcal.com")
+                    .email("admin5@doctorcal.com")
                     .password(passwordEncoder.encode("1234"))
-                    .phone("01012345678")
+                    .phone("01012315689")
                     .hospital(hospital1)
                     .dept(dept10)
-                    .level(LevelEnum.INTERN)
+                    .level(LevelEnum.PK)
                     .auth(AuthEnum.ADMIN)
                     .status(StatusEnum.APPROVED)
                     .annual(15)
@@ -609,10 +610,54 @@ public class DBInit {
                     .evaluation(EvaluationEnum.STANDBY)
                     .build();
 
+            Schedule schedule30 = Schedule.builder()
+                    .user(user1)
+                    .hospital(hospital1)
+                    .category(CategoryEnum.ANNUAL)
+                    .startDate(LocalDate.of(2023, 11, 2))
+                    .endDate(LocalDate.of(2023, 11, 2))
+                    .evaluation(EvaluationEnum.APPROVED)
+                    .build();
+
             scheduleRepository.saveAll(Arrays.asList(schedule1, schedule2, schedule3, schedule4, schedule5,
                     schedule6, schedule7, schedule8,
                     schedule21, schedule22, schedule23, schedule24,
-                    schedule27, schedule28, schedule29));
+                    schedule27, schedule28, schedule29, schedule30));
+
+            Work work1 = Work.builder()
+                    .user(user1)
+                    .startTime(LocalDateTime.of(2023,11, 1, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,11, 1, 18,0,0))
+                    .build();
+
+            Work work2 = Work.builder()
+                    .user(user4)
+                    .startTime(LocalDateTime.of(2023,11, 1, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,11, 1, 18,0,0))
+                    .build();
+
+            Work work3 = Work.builder()
+                    .user(user4)
+                    .startTime(LocalDateTime.of(2023,10, 31, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,10, 31, 18,0,0))
+                    .build();
+            Work work4 = Work.builder()
+                    .user(user1)
+                    .startTime(LocalDateTime.of(2023,11, 2, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,11, 2, 19,30,0))
+                    .build();
+            Work work5 = Work.builder()
+                    .user(user1)
+                    .startTime(LocalDateTime.of(2023,11, 5, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,11, 5, 18,30,0))
+                    .build();
+            Work work6 = Work.builder()
+                    .user(user1)
+                    .startTime(LocalDateTime.of(2023,11, 6, 8,0,0))
+                    .endTime(LocalDateTime.of(2023,11, 6, 17,30,0))
+                    .build();
+
+            workRepository.saveAll(Arrays.asList(work1, work2, work3, work4, work5, work6));
         };
     }
 }
