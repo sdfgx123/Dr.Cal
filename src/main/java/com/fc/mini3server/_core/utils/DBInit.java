@@ -24,9 +24,8 @@ public class DBInit {
     private final WorkRepository workRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    @Profile("dev")
-    @Bean
+//    @Profile("dev")
+//    @Bean
     CommandLineRunner initDB(){
         return args -> {
             Hospital hospital1 = Hospital.builder()
