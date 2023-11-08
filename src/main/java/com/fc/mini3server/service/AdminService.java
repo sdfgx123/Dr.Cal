@@ -203,16 +203,14 @@ public class AdminService {
                 .build();
     }
 
-    public UserWorkListPageDTO findUserWorkList(LevelEnum level, String dept, Pageable pageable) {
+    public List<UserWorkListDTO> findUserWorkList(LevelEnum level, String dept) {
         User user = userService.getUser();
 
         if (!deptRepository.existsByNameAndHospital(dept, user.getHospital()))
             dept = "All";
 
-        Page<User> userPageList = userRepository.findAllByAuthAndLevelAndHospitalAndDept(
-                AuthEnum.USER, level, user.getHospital(), dept, pageable);
-
-        List<User> userList = userPageList.getContent();
+        List<User> userList = userRepository.findAllByAuthAndLevelAndHospitalAndDept(
+                AuthEnum.USER, level, user.getHospital(), dept);
 
         List<findUserWorkTimeDTO> UserWorkList = new ArrayList<>();
 
@@ -232,7 +230,7 @@ public class AdminService {
                     .build());
         }
 
-        return new UserWorkListPageDTO(userPageList.getTotalPages(), UserWorkListDTO.listOf(UserWorkList));
+        return UserWorkListDTO.listOf(UserWorkList);
     }
 
     public String parseDuration(Duration duration) {

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fc.mini3server.dto.AdminRequestDTO.*;
+import static com.fc.mini3server.dto.AdminRequestDTO.findUserWorkTimeDTO;
 
 public class AdminResponseDTO {
 
@@ -130,14 +130,6 @@ public class AdminResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
-    public static class UserWorkListPageDTO {
-        private int totalPages;
-        List<UserWorkListDTO> userWorkList;
-    }
-
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
     @Builder
     public static class UserWorkListDTO {
         private Long id;
@@ -155,7 +147,7 @@ public class AdminResponseDTO {
                     requestDTO.getMonthWorkTime(), requestDTO.getStatus());
         }
 
-        public static List<UserWorkListDTO> listOf(List<findUserWorkTimeDTO> list){
+        public static List<UserWorkListDTO> listOf(List<findUserWorkTimeDTO> list) {
             return list.stream().map(UserWorkListDTO::of).collect(Collectors.toList());
         }
     }
