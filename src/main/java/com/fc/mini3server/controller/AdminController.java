@@ -125,10 +125,8 @@ public class AdminController {
     @GetMapping("/work")
     public ResponseEntity<?> work(
             @RequestParam(name = "level", required = false, defaultValue = "") LevelEnum level,
-            @RequestParam(name = "dept", required = false, defaultValue = "") String dept, @PageableDefault(size = 10) Pageable pageable) {
-        final UserWorkListPageDTO userWorkList = adminService.findUserWorkList(level, dept, pageable);
-        return ResponseEntity.ok(ApiUtils.success(
-                userWorkList.getTotalPages(), userWorkList.getUserWorkList()
-        ));
+            @RequestParam(name = "dept", required = false, defaultValue = "") String dept) {
+        final List<UserWorkListDTO> userWorkList = adminService.findUserWorkList(level, dept);
+        return ResponseEntity.ok(ApiUtils.success(userWorkList));
     }
 }
