@@ -39,3 +39,5 @@ out/
 ### DS Store ###
 **/.DS_Store
 
+### disable application.yml ###
+**/.resources
